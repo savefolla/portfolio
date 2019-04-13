@@ -5,7 +5,9 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.SphereGeometry(1, 32, 32);
+const radius = 2.5;
+
+const geometry = new THREE.SphereGeometry(radius, 32, 32);
 const material = new THREE.MeshBasicMaterial({
   color: 0xff0000,
   wireframe: true
@@ -20,8 +22,12 @@ let index = 0;
 const animate = () => {
   requestAnimationFrame(animate);
 
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+
   if (index % 50 === 0) {
-    sphere.geometry = new THREE.SphereGeometry(2, 25 * Math.random(), 25 * Math.random(), 0, Math.PI * 2, 10 * Math.random(), 10 * Math.random());
+    sphere.geometry = new THREE.SphereGeometry(radius, 25 * Math.random(), 25 * Math.random(), 0, Math.PI * 2, 10 * Math.random(), 10 * Math.random());
   }
 
   sphere.rotation.x += 0.01;
