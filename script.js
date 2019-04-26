@@ -3,19 +3,31 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+//renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const radius = 1;
 
 const geometry = new THREE.SphereGeometry(radius, 32, 32);
-const material = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-  wireframe: true
+const material = new THREE.MeshPhongMaterial({
+  color: 0xffffff,
+  opacity: 1,
+  shininess: 100,
+  side: THREE.DoubleSide,
+  wireframe: false
 });
 const sphere = new THREE.Mesh(geometry, material);
+sphere.castShadow = true;
+sphere.receiveShadow = true;
 scene.add(sphere);
 
 camera.position.z = 5;
+
+const light = new THREE.PointLight( 0xffffff, 1, 100 );
+light.position.set( 0, 0, 5 );
+light.castShadow = true;
+scene.add( light );
 
 let index = 0;
 let allowAnimation = false;

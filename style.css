@@ -24,7 +24,7 @@ canvas {
 }
 
 .content {
-  color: red;
+  color: white;
   padding: 1rem;
   font-size: 8rem;
   overflow-y: auto;
@@ -44,7 +44,7 @@ canvas {
 }
 
 a {
-  color: red;
+  color: white;
   text-decoration: none;
 }
 
