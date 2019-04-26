@@ -5,7 +5,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-const radius = 2.5;
+const radius = 1;
 
 const geometry = new THREE.SphereGeometry(radius, 32, 32);
 const material = new THREE.MeshBasicMaterial({
