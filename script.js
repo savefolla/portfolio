@@ -28,14 +28,14 @@ composer.addPass(glitchPass);
 const animate = () => {
   requestAnimationFrame(animate);
 
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
   sphere.rotation.x += 0.01;
   sphere.rotation.y += 0.01;
 
   if (allowAnimation) {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
     if (index % 50 === 0) {
       sphere.geometry = new THREE.SphereGeometry(radius, 25 * Math.random(), 25 * Math.random(), 0, Math.PI * 2, 10 * Math.random(), 10 * Math.random());
     }
@@ -65,10 +65,18 @@ addEventListener('mousemove', e => {
   camera.position.y = yFactor;
 });
 
-addEventListener('keydown', e => {
+addEventListener('mousedown', e => {
   allowAnimation = true;
 });
 
-addEventListener('keyup', e => {
+addEventListener('touchstart', e => {
+  allowAnimation = true;
+});
+
+addEventListener('mouseup', e => {
+  allowAnimation = false;
+});
+
+addEventListener('touchend', e => {
   allowAnimation = false;
 });
