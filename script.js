@@ -1,5 +1,5 @@
 const getRandomGeometryConfig = () => {
-  return new THREE.SphereGeometry(radius, 25 * Math.random() + 5, 25 * Math.random() + 5, 0, Math.PI * 2, 10 * Math.random() + 5, 10 * Math.random() + 5)
+  return new THREE.SphereGeometry(radius, 25 * Math.random() + 5, 25 * Math.random() + 5, 0, Math.PI * 2, 100 * Math.random() + 5, 100 * Math.random() + 5)
 };
 
 const scene = new THREE.Scene();
