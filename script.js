@@ -89,13 +89,11 @@ getDays();
 });*/
 
 const onTouchStart = () => {
-  console.log('start')
   allowAnimation = true;
   animationStartedAt = new Date();
 };
 
 const onTouchEnd = () => {
-  console.log('end')
   allowAnimation = false;
   animationStartedAt = undefined;
   document.querySelector('.content').classList.remove('hidden');
