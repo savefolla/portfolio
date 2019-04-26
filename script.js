@@ -39,8 +39,12 @@ let contentHidden = false;
 
 composer = new THREE.EffectComposer(renderer);
 composer.addPass(new THREE.RenderPass(scene, camera));
-glitchPass = new THREE.GlitchPass();
-composer.addPass(glitchPass);
+const dotScreenEffect = new THREE.ShaderPass(THREE.DotScreenShader);
+dotScreenEffect.uniforms['scale'].value = 2;
+composer.addPass(dotScreenEffect);
+const glitchEffect = new THREE.GlitchPass();
+glitchEffect.enabled = false;
+composer.addPass(glitchEffect);
 
 const animate = () => {
   requestAnimationFrame(animate);
@@ -55,12 +59,12 @@ const animate = () => {
   if (allowAnimation) {
     if (index % 30 === 0) {
       sphere.geometry = getRandomGeometryConfig();
+      glitchEffect.enabled = true;
     }
     index = index + 1;
-    composer.render();
-  } else {
-    renderer.render(scene, camera);
   }
+
+  composer.render();
 
   if (!contentHidden && (new Date() - animationStartedAt) > 1000) {
     contentHidden = true;
