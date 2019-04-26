@@ -1,5 +1,5 @@
 const getRandomGeometryConfig = () => {
-  return new THREE.SphereGeometry(radius, 25 * Math.random() + 5, 25 * Math.random() + 5, 0, Math.PI * 2, 100 * Math.random() + 5, 100 * Math.random() + 5)
+  return new THREE.SphereBufferGeometry(radius, 25 * Math.random() + 5, 25 * Math.random() + 5, 0, Math.PI * 2, 100 * Math.random() + 5, 100 * Math.random() + 5)
 };
 
 const scene = new THREE.Scene();
@@ -14,7 +14,7 @@ document.body.appendChild(renderer.domElement);
 
 const radius = 2;
 
-const geometry = new THREE.SphereGeometry(radius, 32, 32);
+const geometry = new THREE.SphereBufferGeometry(radius, 32, 32);
 const material = new THREE.MeshPhongMaterial({
   color: 0xffffff,
   shininess: 10,
