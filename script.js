@@ -39,9 +39,6 @@ let contentHidden = false;
 
 composer = new THREE.EffectComposer(renderer);
 composer.addPass(new THREE.RenderPass(scene, camera));
-const dotScreenEffect = new THREE.ShaderPass(THREE.DotScreenShader);
-dotScreenEffect.uniforms['scale'].value = 2;
-composer.addPass(dotScreenEffect);
 const glitchEffect = new THREE.GlitchPass();
 glitchEffect.enabled = false;
 composer.addPass(glitchEffect);
