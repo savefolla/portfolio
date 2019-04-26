@@ -23,6 +23,10 @@ canvas {
   right: 0;
 }
 
+.hidden {
+  display: none;
+}
+
 .content {
   color: white;
   padding: 1rem;
@@ -41,6 +45,13 @@ canvas {
 
 .content__smallest {
   font-size: 2rem;
+}
+
+.info {
+  position: absolute;
+  color: white;
+  bottom: 1rem;
+  left: 1rem;
 }
 
 a {

@@ -16,7 +16,7 @@ const radius = 2;
 const geometry = new THREE.SphereGeometry(radius, 32, 32);
 const material = new THREE.MeshPhongMaterial({
   color: 0xffffff,
-  shininess: 100,
+  shininess: 10,
   side: THREE.DoubleSide
 });
 const sphere = new THREE.Mesh(geometry, material);
@@ -33,6 +33,8 @@ scene.add(light);
 
 let index = 0;
 let allowAnimation = false;
+let animationStartedAt = undefined;
+let contentHidden = false;
 
 composer = new THREE.EffectComposer(renderer);
 composer.addPass(new THREE.RenderPass(scene, camera));
@@ -59,6 +61,12 @@ const animate = () => {
     renderer.render(scene, camera);
   }
 
+  if (!contentHidden && (new Date() - animationStartedAt) > 1000) {
+    contentHidden = true;
+    document.querySelector('.content').classList.add('hidden');
+    document.querySelector('.info').classList.remove('hidden');
+  }
+
 };
 
 animate();
@@ -79,18 +87,23 @@ getDays();
   camera.position.y = yFactor;
 });*/
 
-addEventListener('mousedown', e => {
+const onTouchStart = () => {
   allowAnimation = true;
-});
+  animationStartedAt = new Date();
+};
 
-addEventListener('touchstart', e => {
-  allowAnimation = true;
-});
-
-addEventListener('mouseup', e => {
+const onTouchEnd = () => {
   allowAnimation = false;
-});
+  animationStartedAt = undefined;
+  document.querySelector('.content').classList.remove('hidden');
+  document.querySelector('.info').classList.add('hidden');
+  contentHidden = false;
+};
 
-addEventListener('touchend', e => {
-  allowAnimation = false;
-});
+addEventListener('mousedown', onTouchStart);
+
+addEventListener('touchstart', onTouchStart);
+
+addEventListener('mouseup', onTouchEnd);
+
+addEventListener('touchend', onTouchEnd);
