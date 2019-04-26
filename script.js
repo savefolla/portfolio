@@ -44,7 +44,7 @@ const animate = () => {
   } else {
     renderer.render(scene, camera);
   }
-  
+
 };
 
 animate();
