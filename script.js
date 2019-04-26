@@ -18,24 +18,33 @@ scene.add(sphere);
 camera.position.z = 5;
 
 let index = 0;
+let allowAnimation = false;
+
+composer = new THREE.EffectComposer(renderer);
+composer.addPass(new THREE.RenderPass(scene, camera));
+glitchPass = new THREE.GlitchPass();
+composer.addPass(glitchPass);
 
 const animate = () => {
   requestAnimationFrame(animate);
 
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-
-  if (index % 50 === 0) {
-    sphere.geometry = new THREE.SphereGeometry(radius, 25 * Math.random(), 25 * Math.random(), 0, Math.PI * 2, 10 * Math.random(), 10 * Math.random());
-  }
-
   sphere.rotation.x += 0.01;
   sphere.rotation.y += 0.01;
 
-  index = index + 1;
+  if (allowAnimation) {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-  renderer.render(scene, camera);
+    if (index % 50 === 0) {
+      sphere.geometry = new THREE.SphereGeometry(radius, 25 * Math.random(), 25 * Math.random(), 0, Math.PI * 2, 10 * Math.random(), 10 * Math.random());
+    }
+    index = index + 1;
+    composer.render();
+  } else {
+    renderer.render(scene, camera);
+  }
+  
 };
 
 animate();
@@ -49,9 +58,17 @@ const getDays = () => {
 
 getDays();
 
-addEventListener('mousemove', (e) => {
+addEventListener('mousemove', e => {
   const xFactor = e.clientX / window.innerWidth - .5;
   const yFactor = e.clientY / window.innerHeight - .5;
   camera.position.x = xFactor;
   camera.position.y = yFactor;
+});
+
+addEventListener('keydown', e => {
+  allowAnimation = true;
+});
+
+addEventListener('keyup', e => {
+  allowAnimation = false;
 });
