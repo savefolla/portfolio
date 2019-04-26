@@ -1,21 +1,23 @@
+const getRandomGeometryConfig = () => {
+  return new THREE.SphereGeometry(radius, 25 * Math.random() + 5, 25 * Math.random() + 5, 0, Math.PI * 2, 10 * Math.random() + 5, 10 * Math.random() + 5)
+};
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
-//renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.type = THREE.PCFShadowMap;
 document.body.appendChild(renderer.domElement);
 
-const radius = 1;
+const radius = 2;
 
 const geometry = new THREE.SphereGeometry(radius, 32, 32);
 const material = new THREE.MeshPhongMaterial({
   color: 0xffffff,
-  opacity: 1,
   shininess: 100,
-  side: THREE.DoubleSide,
-  wireframe: false
+  side: THREE.DoubleSide
 });
 const sphere = new THREE.Mesh(geometry, material);
 sphere.castShadow = true;
@@ -24,10 +26,10 @@ scene.add(sphere);
 
 camera.position.z = 5;
 
-const light = new THREE.PointLight( 0xffffff, 1, 100 );
-light.position.set( 0, 0, 5 );
+const light = new THREE.PointLight(0xffffff, 1, 100);
+light.position.set(0, 0, 5);
 light.castShadow = true;
-scene.add( light );
+scene.add(light);
 
 let index = 0;
 let allowAnimation = false;
@@ -49,7 +51,7 @@ const animate = () => {
 
   if (allowAnimation) {
     if (index % 50 === 0) {
-      sphere.geometry = new THREE.SphereGeometry(radius, 25 * Math.random(), 25 * Math.random(), 0, Math.PI * 2, 10 * Math.random(), 10 * Math.random());
+      sphere.geometry = getRandomGeometryConfig();
     }
     index = index + 1;
     composer.render();
@@ -70,12 +72,12 @@ const getDays = () => {
 
 getDays();
 
-addEventListener('mousemove', e => {
+/*addEventListener('mousemove', e => {
   const xFactor = e.clientX / window.innerWidth - .5;
   const yFactor = e.clientY / window.innerHeight - .5;
   camera.position.x = xFactor;
   camera.position.y = yFactor;
-});
+});*/
 
 addEventListener('mousedown', e => {
   allowAnimation = true;
