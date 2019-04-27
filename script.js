@@ -63,6 +63,7 @@ const animate = () => {
     if (!contentHidden) {
       const progress = (new Date() - animationStartedAt) / animationDuration;
       document.querySelector('.call-to-action--desktop__progress').setAttribute('style', `width: ${98 * progress}px`);
+      document.querySelector('#mobile-progress-bar').setAttribute('style', `stroke-dashoffset: ${28 - 28 * progress}px`)
     }
   }
 
@@ -115,6 +116,7 @@ const onTouchEnd = () => {
   document.querySelector('.info').classList.add('hidden');
   document.querySelector('.info').removeAttribute('style');
   document.querySelector('.call-to-action--desktop__progress').removeAttribute('style');
+  document.querySelector('#mobile-progress-bar').removeAttribute('style');
   contentHidden = false;
   glitchEffect.enabled = false;
 };

@@ -95,3 +95,7 @@ a {
 a:hover {
   text-decoration: line-through;
 }
+
+path {
+  stroke-dasharray: 28px;
+}
