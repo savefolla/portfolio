@@ -49,11 +49,36 @@ canvas {
 }
 
 .info {
-  position: absolute;
+  position: fixed;
   color: white;
   bottom: calc(1rem - 10px);
   left: 1rem;
   opacity: 0;
+}
+
+.call-to-action {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  color: white;
+}
+
+.call-to-action--desktop {
+  display: block;
+}
+
+.call-to-action--mobile {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .call-to-action--desktop {
+    display: none;
+  }
+
+  .call-to-action--mobile {
+    display: block;
+  }
 }
 
 a {
