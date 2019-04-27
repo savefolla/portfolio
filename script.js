@@ -100,6 +100,7 @@ const onTouchEnd = () => {
   document.querySelector('.content').classList.remove('hidden');
   document.querySelector('.info').classList.add('hidden');
   contentHidden = false;
+  glitchEffect.enabled = false;
 };
 
 addEventListener('mousedown', onTouchStart);
