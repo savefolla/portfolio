@@ -67,6 +67,13 @@ const animate = () => {
     contentHidden = true;
     document.querySelector('.content').classList.add('hidden');
     document.querySelector('.info').classList.remove('hidden');
+    anime({
+      targets: '.info',
+      translateY: -10,
+      duration: 500,
+      opacity: 1,
+      easing: 'easeOutSine'
+    });
   }
 
 };
@@ -99,6 +106,7 @@ const onTouchEnd = () => {
   animationStartedAt = undefined;
   document.querySelector('.content').classList.remove('hidden');
   document.querySelector('.info').classList.add('hidden');
+  document.querySelector('.info').removeAttribute('style');
   contentHidden = false;
   glitchEffect.enabled = false;
 };

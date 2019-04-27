@@ -51,8 +51,9 @@ canvas {
 .info {
   position: absolute;
   color: white;
-  bottom: 1rem;
+  bottom: calc(1rem - 10px);
   left: 1rem;
+  opacity: 0;
 }
 
 a {
