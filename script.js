@@ -33,6 +33,7 @@ let index = 0;
 let allowAnimation = false;
 let animationStartedAt = undefined;
 let contentHidden = false;
+const animationDuration = 1000;
 
 composer = new THREE.EffectComposer(renderer);
 composer.addPass(new THREE.RenderPass(scene, camera));
@@ -59,13 +60,18 @@ const animate = () => {
       glitchEffect.enabled = true;
     }
     index = index + 1;
+    if (!contentHidden) {
+      const progress = (new Date() - animationStartedAt) / animationDuration;
+      document.querySelector('.call-to-action--desktop__progress').setAttribute('style', `width: ${98 * progress}px`);
+    }
   }
 
   composer.render();
 
-  if (!contentHidden && (new Date() - animationStartedAt) > 1000) {
+  if (!contentHidden && (new Date() - animationStartedAt) > animationDuration) {
     contentHidden = true;
     document.querySelector('.content').classList.add('hidden');
+    document.querySelector('.call-to-action').classList.add('hidden');
     document.querySelector('.info').classList.remove('hidden');
     anime({
       targets: '.info',
@@ -105,8 +111,10 @@ const onTouchEnd = () => {
   allowAnimation = false;
   animationStartedAt = undefined;
   document.querySelector('.content').classList.remove('hidden');
+  document.querySelector('.call-to-action').classList.remove('hidden');
   document.querySelector('.info').classList.add('hidden');
   document.querySelector('.info').removeAttribute('style');
+  document.querySelector('.call-to-action--desktop__progress').removeAttribute('style');
   contentHidden = false;
   glitchEffect.enabled = false;
 };

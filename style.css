@@ -63,19 +63,25 @@ canvas {
   color: white;
 }
 
+.call-to-action--desktop__progress {
+  display: block;
+  position: absolute;
+  width: 0px;
+  background: white;
+  height: 1px;
+  right: 0;
+}
+
 .call-to-action--desktop {
   display: block;
 }
-
 .call-to-action--mobile {
   display: none;
 }
-
 @media screen and (max-width: 767px) {
   .call-to-action--desktop {
     display: none;
   }
-
   .call-to-action--mobile {
     display: block;
   }
