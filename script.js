@@ -16,7 +16,8 @@ const geometry = new THREE.SphereBufferGeometry(radius, 32, 32);
 const material = new THREE.MeshPhongMaterial({
   color: 0xffffff,
   shininess: 10,
-  side: THREE.DoubleSide
+  side: THREE.DoubleSide,
+  flatShading: true
 });
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
