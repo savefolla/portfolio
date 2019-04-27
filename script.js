@@ -8,8 +8,6 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer();
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const radius = 2;
@@ -21,8 +19,6 @@ const material = new THREE.MeshPhongMaterial({
   side: THREE.DoubleSide
 });
 const sphere = new THREE.Mesh(geometry, material);
-sphere.castShadow = true;
-sphere.receiveShadow = true;
 scene.add(sphere);
 
 camera.position.z = 5;
@@ -39,6 +35,9 @@ let contentHidden = false;
 
 composer = new THREE.EffectComposer(renderer);
 composer.addPass(new THREE.RenderPass(scene, camera));
+const dotScreenEffect = new THREE.ShaderPass(THREE.DotScreenShader);
+dotScreenEffect.uniforms['scale'].value = 2;
+composer.addPass(dotScreenEffect);
 const glitchEffect = new THREE.GlitchPass();
 glitchEffect.enabled = false;
 composer.addPass(glitchEffect);
