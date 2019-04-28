@@ -23,12 +23,18 @@ const material = new THREE.MeshPhongMaterial({
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
-controls = new THREE.DeviceOrientationControls(sphere);
-
 const light = new THREE.PointLight(0xffffff, 1, 100);
 light.position.set(0, 0, 5);
 light.castShadow = true;
 scene.add(light);
+
+pivot = new THREE.Group();
+pivot.position.set(0, 0, 0);
+pivot.add(camera);
+pivot.add(light);
+scene.add(pivot);
+
+controls = new THREE.DeviceOrientationControls(pivot);
 
 let index = 0;
 let allowAnimation = false;
@@ -52,10 +58,6 @@ const animate = () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  sphere.rotation.x += 0.01;
-  sphere.rotation.y += 0.01;
-  sphere.rotation.z += 0.01;
-
   if (allowAnimation) {
     if (!contentHidden) {
       const progress = (new Date() - animationStartedAt) / animationDuration;
@@ -70,7 +72,13 @@ const animate = () => {
     }
   }
 
-  if (window.orientation !== undefined) controls.update();
+  if (window.orientation !== undefined) {
+    controls.update();
+  } else {
+    sphere.rotation.x += 0.01;
+    sphere.rotation.y += 0.01;
+    sphere.rotation.z += 0.01;
+  }
   composer.render();
 
   if (!contentHidden && (new Date() - animationStartedAt) > animationDuration) {
