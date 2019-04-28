@@ -53,17 +53,19 @@ const animate = () => {
 
   sphere.rotation.x += 0.01;
   sphere.rotation.y += 0.01;
+  sphere.rotation.z += 0.01;
 
   if (allowAnimation) {
-    if (index % 30 === 0) {
-      sphere.geometry = getRandomGeometryConfig();
-      glitchEffect.enabled = true;
-    }
-    index = index + 1;
     if (!contentHidden) {
       const progress = (new Date() - animationStartedAt) / animationDuration;
       document.querySelector('.call-to-action--desktop__progress').setAttribute('style', `width: ${98 * progress}px`);
       document.querySelector('#mobile-progress-bar').setAttribute('style', `stroke-dashoffset: ${28 - 28 * progress}px`)
+    } else {
+      if (index % 30 === 0) {
+        sphere.geometry = getRandomGeometryConfig();
+        glitchEffect.enabled = true;
+      }
+      index = index + 1;
     }
   }
 
@@ -95,13 +97,6 @@ const getDays = () => {
 };
 
 getDays();
-
-/*addEventListener('mousemove', e => {
-  const xFactor = e.clientX / window.innerWidth - .5;
-  const yFactor = e.clientY / window.innerHeight - .5;
-  camera.position.x = xFactor;
-  camera.position.y = yFactor;
-});*/
 
 const onTouchStart = () => {
   allowAnimation = true;
