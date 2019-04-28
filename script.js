@@ -23,15 +23,18 @@ const material = new THREE.MeshPhongMaterial({
 const sphere = new THREE.Mesh(geometry, material);
 scene.add(sphere);
 
-const light = new THREE.PointLight(0xffffff, 1, 100);
-light.position.set(0, 0, 5);
-light.castShadow = true;
-scene.add(light);
+const light1 = new THREE.PointLight(0xffffff, 1, 100);
+light1.position.set(0, 0, 5);
+light1.castShadow = true;
+scene.add(light1);
+const light2 = new THREE.PointLight(0xfffff, 1, 100);
+light2.position.set(0, 0, -5);
+light2.castShadow = true;
+scene.add(light2);
 
 pivot = new THREE.Group();
 pivot.position.set(0, 0, 0);
 pivot.add(camera);
-pivot.add(light);
 scene.add(pivot);
 
 controls = new THREE.DeviceOrientationControls(pivot);
