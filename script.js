@@ -34,6 +34,7 @@ scene.add(light2);
 
 pivot = new THREE.Group();
 pivot.position.set(0, 0, 0);
+pivot.rotation.y = 1;
 pivot.add(camera);
 scene.add(pivot);
 
