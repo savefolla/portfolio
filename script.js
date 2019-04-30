@@ -130,7 +130,9 @@ const onTouchEnd = () => {
   glitchEffect.enabled = false;
 };
 
-addEventListener('mousedown', onTouchStart);
+addEventListener('mousedown', e => {
+  if (e.button === 0) onTouchStart();
+});
 
 addEventListener('touchstart', onTouchStart);
 
