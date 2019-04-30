@@ -22,14 +22,14 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
       }
     });
     sphere.rotation.x = -1.5;
-    sphere.position.y = -100;
+    sphere.position.y = -120;
     scene.add(sphere);
 
-    const light1 = new THREE.PointLight(0xffffff, cameraDistance / 10, cameraDistance);
+    const light1 = new THREE.PointLight(0xffffff, cameraDistance / 20, cameraDistance);
     light1.position.set(0, 0, cameraDistance);
     light1.castShadow = true;
     scene.add(light1);
-    const light2 = new THREE.PointLight(0xfffff, cameraDistance / 10, cameraDistance);
+    const light2 = new THREE.PointLight(0xfffff, cameraDistance / 20, cameraDistance);
     light2.position.set(0, 0, -cameraDistance);
     light2.castShadow = true;
     scene.add(light2);
@@ -52,7 +52,7 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
     composer.addPass(new THREE.RenderPass(scene, camera));
     const dotScreenEffect = new THREE.ShaderPass(THREE.DotScreenShader);
     dotScreenEffect.uniforms['scale'].value = 2;
-    //composer.addPass(dotScreenEffect);
+    composer.addPass(dotScreenEffect);
     const glitchEffect = new THREE.GlitchPass();
     glitchEffect.enabled = false;
     composer.addPass(glitchEffect);
@@ -78,11 +78,8 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
         }
       }
 
-      if (window.orientation !== undefined) {
-        controls.update();
-      } else {
-        pivot.rotation.y += 0.01;
-      }
+      if (window.orientation !== undefined) controls.update();
+      else pivot.rotation.y += 0.01;
       composer.render();
 
       if (!contentHidden && (new Date() - animationStartedAt) > animationDuration) {
