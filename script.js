@@ -25,11 +25,11 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
     sphere.position.y = -120;
     scene.add(sphere);
 
-    const light1 = new THREE.PointLight(0xffffff, cameraDistance / 20, cameraDistance);
+    const light1 = new THREE.PointLight(0xffffff, cameraDistance / 40, cameraDistance);
     light1.position.set(0, 0, cameraDistance);
     light1.castShadow = true;
     scene.add(light1);
-    const light2 = new THREE.PointLight(0xfffff, cameraDistance / 20, cameraDistance);
+    const light2 = new THREE.PointLight(0xfffff, cameraDistance / 40, cameraDistance);
     light2.position.set(0, 0, -cameraDistance);
     light2.castShadow = true;
     scene.add(light2);
@@ -127,7 +127,9 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
       glitchEffect.enabled = false;
     };
 
-    addEventListener('mousedown', onTouchStart);
+    addEventListener('mousedown', e => {
+      if (e.button === 0) onTouchStart();
+    });
 
     addEventListener('touchstart', onTouchStart);
 

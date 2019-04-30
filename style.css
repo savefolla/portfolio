@@ -30,7 +30,7 @@ canvas {
 .content {
   color: white;
   padding: 1rem;
-  font-size: 8rem;
+  font-size: 6rem;
   overflow-y: auto;
   text-transform: lowercase;
   background: rgba(0, 0, 0, .5);
@@ -46,6 +46,20 @@ canvas {
 
 .content__smallest {
   font-size: 2rem;
+}
+
+.content__email .label {
+  display: block;
+}
+.content__email .text {
+  display: none;
+}
+
+.content__email:hover .label {
+  display: none;
+}
+.content__email:hover .text {
+  display: block;
 }
 
 .info {
