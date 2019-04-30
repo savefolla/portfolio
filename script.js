@@ -1,7 +1,7 @@
-new THREE.OBJLoader().load('models/Skull.obj', (object) => {
+new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const cameraDistance = 300;
+    const cameraDistance = 500;
     camera.position.z = cameraDistance;
 
     const renderer = new THREE.WebGLRenderer();
@@ -18,9 +18,11 @@ new THREE.OBJLoader().load('models/Skull.obj', (object) => {
     const sphere = object;
     object.traverse(function (child) {
       if (child instanceof THREE.Mesh) {
-        child.material = material
+        child.material = material;
       }
     });
+    sphere.rotation.x = -1.5;
+    sphere.position.y = -100;
     scene.add(sphere);
 
     const light1 = new THREE.PointLight(0xffffff, cameraDistance / 10, cameraDistance);
@@ -50,7 +52,7 @@ new THREE.OBJLoader().load('models/Skull.obj', (object) => {
     composer.addPass(new THREE.RenderPass(scene, camera));
     const dotScreenEffect = new THREE.ShaderPass(THREE.DotScreenShader);
     dotScreenEffect.uniforms['scale'].value = 2;
-    composer.addPass(dotScreenEffect);
+    //composer.addPass(dotScreenEffect);
     const glitchEffect = new THREE.GlitchPass();
     glitchEffect.enabled = false;
     composer.addPass(glitchEffect);
@@ -79,7 +81,7 @@ new THREE.OBJLoader().load('models/Skull.obj', (object) => {
       if (window.orientation !== undefined) {
         controls.update();
       } else {
-        sphere.rotation.y += 0.01;
+        pivot.rotation.y += 0.01;
       }
       composer.render();
 
