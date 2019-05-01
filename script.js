@@ -1,4 +1,10 @@
+let sphere;
+let initialBuffer;
+
 new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
+
+    sphere = object;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const cameraDistance = 500;
@@ -9,18 +15,13 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    const material = new THREE.MeshLambertMaterial({
+    sphere.children[0].material = new THREE.MeshLambertMaterial({
       color: 0xffffff,
       side: THREE.DoubleSide,
       flatShading: true,
       wireframe: false
     });
-    const sphere = object;
-    object.traverse(function (child) {
-      if (child instanceof THREE.Mesh) {
-        child.material = material;
-      }
-    });
+    initialBuffer = [...sphere.children[0].geometry.attributes.position.array];
     sphere.rotation.x = -1.5;
     sphere.position.y = -120;
     scene.add(sphere);
@@ -71,7 +72,8 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
           document.querySelector('#mobile-progress-bar').setAttribute('style', `stroke-dashoffset: ${28 - 28 * progress}px`)
         } else {
           if (index % 30 === 0) {
-            // todo animate position of vertices
+            sphere.children[0].geometry.attributes.position.array = sphere.children[0].geometry.attributes.position.array.map(p => p + (Math.random() < 0.5 ? -1 : 1) * Math.random() * index / 30);
+            sphere.children[0].geometry.attributes.position.needsUpdate = true;
             glitchEffect.enabled = true;
           }
           index = index + 1;
@@ -100,21 +102,15 @@ new THREE.OBJLoader().load('models/Steampunk_skull.obj', (object) => {
 
     animate();
 
-    const getDays = () => {
-      const birthdate = new Date(1995, 12, 25).getTime();
-      const today = new Date().getTime();
-      const age = (today - birthdate) / 1000 / 60 / 60 / 24 / 365;
-      document.getElementById('age').innerHTML = age.toFixed(0);
-    };
-
-    getDays();
-
     const onTouchStart = () => {
       allowAnimation = true;
       animationStartedAt = new Date();
     };
 
     const onTouchEnd = () => {
+      index = 0;
+      sphere.children[0].geometry.attributes.position.array = new Float32Array([...initialBuffer]);
+      sphere.children[0].geometry.attributes.position.needsUpdate = true;
       allowAnimation = false;
       animationStartedAt = undefined;
       document.querySelector('.content').classList.remove('hidden');
