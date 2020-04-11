@@ -61,8 +61,29 @@ THREE.DeviceOrientationControls = function (object) {
 
     onScreenOrientationChangeEvent(); // run once on load
 
-    window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
-    window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
+    if (window.DeviceOrientationEvent !== undefined && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+
+      window.DeviceOrientationEvent.requestPermission().then(function (response) {
+
+        if (response == 'granted') {
+
+          window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
+          window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
+
+        }
+
+      }).catch(function (error) {
+
+        console.error('THREE.DeviceOrientationControls: Unable to use DeviceOrientation API:', error);
+
+      });
+
+    } else {
+
+      window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
+      window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
+
+    }
 
     scope.enabled = true;
 

@@ -27,6 +27,22 @@ canvas {
   display: none;
 }
 
+.init {
+  padding: 40px;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 2rem;
+  box-sizing: border-box;
+}
+
+.button {
+  padding: 10px;
+  border: 1px solid;
+  cursor: pointer;
+}
+
 .content {
   color: white;
   padding: 1rem;
@@ -51,6 +67,7 @@ canvas {
 .content__email .label {
   display: inline;
 }
+
 .content__email .text {
   display: none;
 }
@@ -58,6 +75,7 @@ canvas {
 .content__email:hover .label {
   display: none;
 }
+
 .content__email:hover .text {
   display: inline;
 }
@@ -89,13 +107,16 @@ canvas {
 .call-to-action--desktop {
   display: block;
 }
+
 .call-to-action--mobile {
   display: none;
 }
+
 @media screen and (max-width: 767px) {
   .call-to-action--desktop {
     display: none;
   }
+
   .call-to-action--mobile {
     display: block;
   }
