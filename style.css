@@ -62,7 +62,6 @@ canvas {
   padding: 1rem;
   font-size: 6rem;
   overflow-y: auto;
-  text-transform: lowercase;
   background: rgba(0, 0, 0, .5);
 }
 
